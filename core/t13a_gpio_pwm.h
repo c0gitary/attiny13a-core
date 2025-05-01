@@ -14,21 +14,21 @@
 */
 
 
-__attribute__((always_inline))
+__attribute__((always_inline, cold))
 static inline void 
 gpio_pwm_init(const pin_t pin, const pwm_prescaler_t prescaler, const pwm_mode_t mode){
     if(prescaler){
-        if(prescaler == PRESCALER_8) {
+        if(prescaler == PWM_PRESCALER_8) {
             set_bit(TCCR0B, CS01);
         }
-        else if(prescaler == PRESCALER_64) {
+        else if(prescaler == PWM_PRESCALER_64) {
             set_bit(TCCR0B, CS00);
             set_bit(TCCR0B, CS01);
         }
-        else if(prescaler == PRESCALER_256) {
+        else if(prescaler == PWM_PRESCALER_256) {
             set_bit(TCCR0B, CS02);
         }
-        else if(prescaler == PRESCALER_1024) {
+        else if(prescaler == PWM_PRESCALER_1024) {
             set_bit(TCCR0B, CS00);
             set_bit(TCCR0B, CS02);
         }
