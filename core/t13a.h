@@ -6,6 +6,8 @@
 #endif /*__AVR_ATtiny13A__*/
 
 #include <avr/io.h>
+#include <avr/interrupt.h>
+#include <util/atomic.h>
 #include <util/delay.h>
 #include <stdlib.h>
 #include <math.h>
@@ -26,7 +28,11 @@
 
 #define constrain(x, l, h) ((x) > (l) ? (l) : (x) > (h) ? (h) : (x))
 
+#define interrupt(state) ((state) ? (sei()) : (cli()))
+
 #include "t13a_typedefs.h"
+
+#include "t13a_timer.h"
 
 #include "t13a_gpio.h"
 

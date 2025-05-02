@@ -24,20 +24,20 @@ typedef enum gpio_adc_pres_t {
     ANALOG_PRESCALER_128
 } adc_prescaler_t;
 
-typedef enum gpio_pwm_mode {
+typedef enum timer_mode {
     PWM_PHASE_CORRECT,
     CTC,
     FAST_PWM,
     RESERVED,
-} pwm_mode_t;
+} timer_mode_t;
 
-typedef enum gpio_pwm_prescaler {
-    PWM_NO_PRESCALER,
-    PWM_PRESCALER_8,
-    PWM_PRESCALER_64,
-    PWM_PRESCALER_256,
-    PWM_PRESCALER_1024,
-} pwm_prescaler_t;
+typedef enum timer_prescaler {
+    NO_PRESCALER,
+    PRESCALER_8,
+    PRESCALER_64,
+    PRESCALER_256,
+    PRESCALER_1024,
+} prescaler_t;
 
 typedef enum gpio_pin {
     PIN_5 = PB0,

@@ -16,57 +16,17 @@
 
 __attribute__((always_inline, cold))
 static inline void 
-gpio_pwm_init(const pin_t pin, const pwm_prescaler_t prescaler, const pwm_mode_t mode){
-    if(prescaler){
-        if(prescaler == PWM_PRESCALER_8) {
-            set_bit(TCCR0B, CS01);
-        }
-        else if(prescaler == PWM_PRESCALER_64) {
-            set_bit(TCCR0B, CS00);
-            set_bit(TCCR0B, CS01);
-        }
-        else if(prescaler == PWM_PRESCALER_256) {
-            set_bit(TCCR0B, CS02);
-        }
-        else if(prescaler == PWM_PRESCALER_1024) {
-            set_bit(TCCR0B, CS00);
-            set_bit(TCCR0B, CS02);
-        }
-    }
-    else {
-        set_bit(TCCR0B, CS00);
-    }
-
-    if(mode) {
-        if(mode == CTC) {
-            set_bit(TCCR0A, WGM01);
-        }
-        else if(mode == FAST_PWM) {
-            set_bit(TCCR0A, WGM00);
-            set_bit(TCCR0A, WGM01);
-        }
-        else if(mode == RESERVED) {
-            set_bit(TCCR0A, WGM02);
-        }
-    }
-    else {
-        set_bit(TCCR0A, WGM00);
-    }
-
-    if(pin == PIN_5) set_bit(TCCR0A, COM0A1);
-    else if(pin == PIN_6) set_bit(TCCR0A, COM0B1);
-
-    if(!read_bit(DDRB, pin)) set_bit(DDRB, pin); 
-
-    return;
+gpio_pwm_init(const pin_t pin, const prescaler_t prescaler, const timer_mode_t mode){
+    timer_set_prescaler(prescaler);
+    timer_set_mode(mode);
+    timer_set_pin(pin);
 }   
+
 
 __attribute__((always_inline, hot))
 static inline void
 gpio_pwm_write(const pin_t pin, const uint8_t val){
-    if(pin == PIN_5) OCR0A = val;
-    else if(pin == PIN_6) OCR0B = val;
-    else return;
+    timer_set_OCR(pin, val);
 }
 
 #endif /*__ATTINY13A_GPIO_PWM__*/

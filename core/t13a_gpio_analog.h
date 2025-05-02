@@ -36,6 +36,7 @@ gpio_analog_init(const pin_t pin, const adc_ref_t ref, const adc_prescaler_t pre
 
     set_bit(DDRB, pin);
     set_bit(ADCSRA, ADEN);
+    return;
 }
 
 __attribute__((always_inline, hot))
